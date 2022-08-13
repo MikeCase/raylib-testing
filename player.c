@@ -46,3 +46,7 @@ Player DamagePlayer(Player player, int damage){
 
     return player;
 }
+
+void DrawPlayer(Rectangle player){
+    DrawRectangleRec(player, RED);
+}

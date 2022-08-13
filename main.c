@@ -25,6 +25,7 @@
 #include "raylib.h"
 #include "player.c"
 #include "world.c"
+#include "ui.c"
 
 #define MAX_BUILDINGS 100
 
@@ -121,7 +122,6 @@ int main(void)
         if (IsKeyPressed(KEY_R)) {
             camera.zoom = 1.0f;
             camera.rotation = 0.0f;
-
         }
 
         if (IsKeyPressed(KEY_D)) myPlayer = DamagePlayer(myPlayer, 5);
@@ -130,30 +130,28 @@ int main(void)
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
+            // Blank canvas
             ClearBackground(RAYWHITE);
 
+            // Start camera view
             BeginMode2D(camera);
 
-                DrawRectangleRec(environment.ground, DARKGRAY);
+                // Draw the ground plane
+                DrawGround(environment.ground);
 
-                for (int i=0; i < MAX_BUILDINGS; i++) {
-                    DrawRectangleRec(environment.buildings[i], environment.buildingColors[i]);
-                }
-                DrawRectangleRec(myPlayer.rect, RED);
+                // Draw buildings in the background
+                DrawBuildings(environment.buildings, environment.buildingColors);
+
+                // Draw the player
+                DrawPlayer(myPlayer.rect);
 
             EndMode2D();
 
+            // Display player health
             DrawText(TextFormat("Player Health: %i", myPlayer.health), 600, 10, 20, GREEN);
 
-            DrawRectangle( 10, 10, 250, 133, Fade(SKYBLUE, 0.5f));
-            DrawRectangleLines( 10, 10, 250, 133, BLUE);
-
-            DrawText("Free 2d camera controls:", 20, 20, 10, BLACK);
-            DrawText("- Right/Left to move Offset", 40, 40, 10, DARKGRAY);
-            DrawText("- Mouse Wheel to Zoom in-out", 40, 60, 10, DARKGRAY);
-            DrawText("- A / S to Rotate", 40, 80, 10, DARKGRAY);
-            DrawText("- R to reset Zoom and Rotation", 40, 100, 10, DARKGRAY);
-            DrawText("- Space to jump", 40, 120, 10, DARKGRAY);
+            // Draw infobox with key help
+            DrawInfoBox();
 
         EndDrawing();
         //----------------------------------------------------------------------------------
