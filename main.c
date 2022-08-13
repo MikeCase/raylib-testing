@@ -24,6 +24,7 @@
 
 #include "raylib.h"
 #include "player.c"
+#include "game_camera.c"
 #include "world.c"
 #include "ui.c"
 
@@ -43,27 +44,13 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
     // Build Player
-    Player myPlayer;
-
-    myPlayer.rect.x = 400;
-    myPlayer.rect.y = 260;
-    myPlayer.rect.width = 40;
-    myPlayer.rect.height = 60;
-    myPlayer.health = 100;
-    myPlayer.alive = true;
-    myPlayer.jumpSpeed = 8;
-    myPlayer.jump = false;
-    myPlayer.jumpTimer = 0;
-    myPlayer.speed = 2;
+    Player myPlayer = InitPlayer();
 
     // Initialize world
     World environment = InitWorld(environment.buildings, environment.buildingColors, MAX_BUILDINGS, screenWidth, screenHeight);
 
-    Camera2D camera = { 0 };
-    camera.target = (Vector2){ myPlayer.rect.x + 20.0f, myPlayer.rect.y + 20.0f };
-    camera.offset = (Vector2){ screenWidth/2.0f, screenHeight/2.0f };
-    camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
+    // Initialize Camera
+    Camera2D camera = InitCam(myPlayer.rect, screenWidth, screenHeight);
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -87,27 +74,7 @@ int main(void)
 
         camera.target = (Vector2){ myPlayer.rect.x + 20, myPlayer.rect.y + 20 };
 
-
-        // Camera Rotation.
-        if (IsKeyDown(KEY_A)) camera.rotation--;
-        else if (IsKeyDown(KEY_S)) camera.rotation++;
-
-        // Limit camera rotation to 80 degrees
-        if (camera.rotation > 40) camera.rotation = 40;
-        else if (camera.rotation < -40) camera.rotation = -40;
-
-        // Zoom controls
-        if (IsKeyDown(KEY_UP)) camera.zoom += 0.05f;
-        else if (IsKeyDown(KEY_DOWN)) camera.zoom -= 0.05f;
-
-        // Limit Zoom
-        if (camera.zoom > 3.0f) camera.zoom = 3.0f;
-        else if (camera.zoom < 0.1f) camera.zoom = 0.1f;
-
-        if (IsKeyPressed(KEY_R)) {
-            camera.zoom = 1.0f;
-            camera.rotation = 0.0f;
-        }
+        camera = MoveCamera(camera);
 
         if (IsKeyPressed(KEY_D)) myPlayer = DamagePlayer(myPlayer, 5);
 

@@ -1,5 +1,10 @@
 #include <raylib.h>
 
+#define PLAYER_X 400
+#define PLAYER_Y 260
+#define PLAYER_HEIGHT 60
+#define PLAYER_WIDTH 40
+
 typedef struct {
     Rectangle rect;
     int health;
@@ -11,6 +16,27 @@ typedef struct {
 
 } Player;
 
+/**
+ * @brief Initialize player
+ *
+ * @return Player
+ */
+Player InitPlayer() {
+    Player myPlayer;
+
+    myPlayer.rect.x = PLAYER_X;
+    myPlayer.rect.y = PLAYER_Y;
+    myPlayer.rect.width = PLAYER_WIDTH;
+    myPlayer.rect.height = PLAYER_HEIGHT;
+    myPlayer.health = 100;
+    myPlayer.alive = true;
+    myPlayer.jumpSpeed = 8;
+    myPlayer.jump = false;
+    myPlayer.jumpTimer = 0;
+    myPlayer.speed = 2;
+
+    return myPlayer;
+}
 /**
  * @brief Player movement
  * 
