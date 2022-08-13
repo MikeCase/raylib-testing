@@ -1,6 +1,13 @@
 #include <raylib.h>
 
-
+/**
+ * @brief Initilize the game camera
+ *
+ * @param playerRect Rectangle
+ * @param screenWidth int
+ * @param screenHeight int
+ * @return Camera2D
+ */
 Camera2D InitCam(Rectangle playerRect, int screenWidth, int screenHeight) {
     Camera2D camera;
 
@@ -12,6 +19,12 @@ Camera2D InitCam(Rectangle playerRect, int screenWidth, int screenHeight) {
     return camera;
 }
 
+/**
+ * @brief Move the camera.
+ *
+ * @param camera Camera2D
+ * @return Camera2D
+ */
 Camera2D MoveCamera(Camera2D camera){
     // Camera Rotation.
         if (IsKeyDown(KEY_A)) camera.rotation--;

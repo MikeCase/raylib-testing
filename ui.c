@@ -2,8 +2,8 @@
 
 /**
  * @brief Draw the help/info box on the screen.
- * 
- * @param hidden bool: true/false (Is the info screen hidden or not)
+ *
+ * @param hidden bool
  */
 void DrawInfoBox(bool hidden){
     if (hidden == false) {

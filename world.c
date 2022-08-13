@@ -13,14 +13,14 @@ typedef struct {
 Texture2D groundTexture;
 
 /**
- * @brief Initialize the environment. 
- * 
- * @param buildings 
- * @param buildingColors 
- * @param maxBuildings 
- * @param screenWidth 
- * @param screenHeight 
- * @return World 
+ * @brief Initialize the environment.
+ *
+ * @param buildings Rectangle[]
+ * @param buildingColors Color[]
+ * @param maxBuildings int
+ * @param screenWidth int
+ * @param screenHeight int
+ * @return World
  */
 World InitWorld(Rectangle buildings[], Color buildingColors[], int maxBuildings, int screenWidth, int screenHeight){
     World myWorld;
@@ -38,8 +38,8 @@ World InitWorld(Rectangle buildings[], Color buildingColors[], int maxBuildings,
     int spacing = 0;
     for (int i = 0; i < maxBuildings; i++){
         myWorld.buildings[i].width = (float)GetRandomValue(50, 200);
-        myWorld.buildings[i].height = (float)GetRandomValue(100,800);
-        myWorld.buildings[i].y = screenHeight - 130.0f - myWorld.buildings[i].height;
+        myWorld.buildings[i].height = (float)GetRandomValue(screenHeight/4,screenHeight);
+        myWorld.buildings[i].y = screenHeight - 448.0f - myWorld.buildings[i].height;
         myWorld.buildings[i].x = -6000.0f + spacing;
 
         spacing += (int)myWorld.buildings[i].width;
@@ -51,9 +51,9 @@ World InitWorld(Rectangle buildings[], Color buildingColors[], int maxBuildings,
 
 /**
  * @brief Draw the buildings to the screen.
- * 
- * @param building 
- * @param buildingColor 
+ *
+ * @param building Rectangle[]
+ * @param buildingColor Color[]
  */
 void DrawBuildings(Rectangle building[], Color buildingColor[]){
     for (int i=0; i < MAX_BUILDINGS; i++) {
@@ -63,8 +63,8 @@ void DrawBuildings(Rectangle building[], Color buildingColor[]){
 
 /**
  * @brief Draw the ground to the screen.
- * 
- * @param ground 
+ *
+ * @param ground Rectangle
  */
 void DrawGround(Rectangle ground){
     DrawRectangleRec(ground, DARKGRAY);

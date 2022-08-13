@@ -1,30 +1,8 @@
-// #include <raylib.h>
-/*******************************************************************************************
-*
-*   raylib [core] example - Basic window
-*
-*   Welcome to raylib!
-*
-*   To test examples, just press F6 and execute raylib_compile_execute script
-*   Note that compiled executable is placed in the same folder as .c file
-*
-*   You can find all basic examples on C:\raylib\raylib\examples folder or
-*   raylib official webpage: www.raylib.com
-*
-*   Enjoy using raylib. :)
-*
-*   Example originally created with raylib 1.0, last time updated with raylib 1.0
-
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
-*
-*   Copyright (c) 2013-2022 Ramon Santamaria (@raysan5)
-*
-********************************************************************************************/
-
 #include "raylib.h"
+#include "raymath.h"
 #include "player.c"
 #include "game_camera.c"
+#include "game_timer.c"
 #include "world.c"
 #include "ui.c"
 
@@ -38,10 +16,11 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1366;
+    const int screenHeight = 768;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    ToggleFullscreen();
 
     // Build Player
     Player myPlayer = InitPlayer();
@@ -109,6 +88,16 @@ int main(void)
                 hidden = false;
             }
             DrawInfoBox(hidden);
+
+            // // Toggle full screen
+            // if (IsKeyPressed(KEY_F11) &! IsWindowFullscreen()){
+            //     CloseWindow();
+            //     InitWindow(1366,768, "My Game");
+            //     ToggleFullscreen();
+            // } else if (IsKeyPressed(KEY_F11) && IsWindowFullscreen()){
+            //     CloseWindow();
+            //     InitWindow(screenWidth, screenHeight, "My Game");
+            // }
 
         EndDrawing();
         //----------------------------------------------------------------------------------

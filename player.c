@@ -39,9 +39,9 @@ Player InitPlayer() {
 }
 /**
  * @brief Player movement
- * 
+ *
  * @param player Player
- * @return Player Player
+ * @return Player
  */
 Player MovePlayer(Player player){
     if (player.alive == false) return player;
@@ -67,9 +67,9 @@ Player MovePlayer(Player player){
 
 /**
  * @brief Give damage to the player.
- * 
+ *
  * @param player Player
- * @param damage int: Amount of damage to give.
+ * @param damage int
  * @return Player Player
  */
 Player DamagePlayer(Player player, int damage){
@@ -86,7 +86,7 @@ Player DamagePlayer(Player player, int damage){
 
 /**
  * @brief Draw the player to the screen.
- * 
+ *
  * @param player Player
  */
 void DrawPlayer(Rectangle player){
