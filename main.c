@@ -29,6 +29,7 @@
 
 #define MAX_BUILDINGS 100
 
+bool hidden = false;
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -55,25 +56,8 @@ int main(void)
     myPlayer.jumpTimer = 0;
     myPlayer.speed = 2;
 
-    // Build world
-    World environment;
-    environment.gravity = 3;
-    environment.ground.x = -6000;
-    environment.ground.y = 320;
-    environment.ground.width = 13000;
-    environment.ground.height = 8000;
-
-    int spacing = 0;
-    for (int i = 0; i < MAX_BUILDINGS; i++){
-        environment.buildings[i].width = (float)GetRandomValue(50, 200);
-        environment.buildings[i].height = (float)GetRandomValue(100,800);
-        environment.buildings[i].y = screenHeight - 130.0f - environment.buildings[i].height;
-        environment.buildings[i].x = -6000.0f + spacing;
-
-        spacing += (int)environment.buildings[i].width;
-
-        environment.buildingColors[i] = (Color){ GetRandomValue(100,240), GetRandomValue(100,240), GetRandomValue(100, 240), 255 };
-    }
+    // Initialize world
+    World environment = InitWorld(environment.buildings, environment.buildingColors, MAX_BUILDINGS, screenWidth, screenHeight);
 
     Camera2D camera = { 0 };
     camera.target = (Vector2){ myPlayer.rect.x + 20.0f, myPlayer.rect.y + 20.0f };
@@ -102,6 +86,7 @@ int main(void)
         myPlayer = MovePlayer(myPlayer);
 
         camera.target = (Vector2){ myPlayer.rect.x + 20, myPlayer.rect.y + 20 };
+
 
         // Camera Rotation.
         if (IsKeyDown(KEY_A)) camera.rotation--;
@@ -151,7 +136,12 @@ int main(void)
             DrawText(TextFormat("Player Health: %i", myPlayer.health), 600, 10, 20, GREEN);
 
             // Draw infobox with key help
-            DrawInfoBox();
+            if(IsKeyPressed(KEY_F1) && hidden == false){
+                hidden = true;
+            } else if (IsKeyPressed(KEY_F1) && hidden == true) {
+                hidden = false;
+            }
+            DrawInfoBox(hidden);
 
         EndDrawing();
         //----------------------------------------------------------------------------------

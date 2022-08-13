@@ -11,7 +11,12 @@ typedef struct {
 
 } Player;
 
-
+/**
+ * @brief Player movement
+ * 
+ * @param player Player
+ * @return Player Player
+ */
 Player MovePlayer(Player player){
     if (player.alive == false) return player;
     // Move player left/right
@@ -34,7 +39,13 @@ Player MovePlayer(Player player){
     return player;
 }
 
-
+/**
+ * @brief Give damage to the player.
+ * 
+ * @param player Player
+ * @param damage int: Amount of damage to give.
+ * @return Player Player
+ */
 Player DamagePlayer(Player player, int damage){
     if (player.health <= 0) {
         player.health = 0;
@@ -47,6 +58,11 @@ Player DamagePlayer(Player player, int damage){
     return player;
 }
 
+/**
+ * @brief Draw the player to the screen.
+ * 
+ * @param player Player
+ */
 void DrawPlayer(Rectangle player){
     DrawRectangleRec(player, RED);
 }
